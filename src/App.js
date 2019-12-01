@@ -1,23 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let myData;
+  fetch('http://api.localhost/get_items')
+  .then(response => response.json())
+  .then((jsonData) => {
+    // jsonData is parsed json object received from url
+    myData = jsonData
+  })
+  .catch((error) => {
+    // handle your errors here
+    console.error(error)
+  })
+  console.log(myData);
+  const SimpleList = () => (
+    <ul>
+      {['a', 'b', 'c'].map(function(item) {
+        return <li key={item}>{item}</li>;
+      })}
+    </ul>
+  );
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {SimpleList()}
       </header>
     </div>
   );
