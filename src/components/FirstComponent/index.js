@@ -8,7 +8,7 @@ class FirstComponent extends React.Component {
   }
 
   render() {
-    return <h1 onClick={this.updateState}>Привет, уроды</h1>;
+    return <h1 onClick={this.updateState}>Привет, мир!</h1>;
   }
 }
 // всегда экспортируй свой компонент
