@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import FirstComponent from "./components/FirstComponent";
 
 function App() {
   let myData;
@@ -25,6 +26,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         {SimpleList()}
+        <FirstComponent />
       </header>
     </div>
   );
