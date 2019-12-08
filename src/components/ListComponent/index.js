@@ -1,42 +1,105 @@
 import React from "react";
+import RenderList from "../RenderList";
+import Form from "../FormComponent";
 
-function UpdateJsonData()
-{
-  fetch('http://api.localhost/get_items')
-  .then(response => response.json())
-  .then((jsonData) => {
-    // jsonData is parsed json object received from url
-    console.log(jsonData);
-    jsonList = jsonData
-  })
-  .catch((error) => {
-    // handle your errors here
-    console.error(error)
-  })
-}
-
-var jsonList = null;
 
 class ListComponent extends React.Component {
-
-  updateState() {
-    console.log("hello");
-    UpdateJsonData();
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: []
+    };
   }
 
+  getlist = () => {
+      console.log("sadfsdaf");
+      fetch('http://localhost:8085/api/get_items')
+          .then(response => response.json())
+          .then((jsonData) => {
+                  this.setState({
+                      isLoaded: true,
+                      items: jsonData
+                  });
+              },
+              (error) => {
+                  this.setState({
+                      isLoaded: false,
+                      error
+                  });
+              })
+  };
+
+
+
+    componentDidMount() {
+        this.getlist();
+    }
+
+  delete = (id) =>{
+      console.log("Delete", id);
+      var url = "http://localhost:8085/api/delete_item/" + id;
+      fetch(url);
+      const {items} = this.state;
+      this.setState({
+          items: items.filter((item, i) => {
+              return item.id !== id
+          }),
+      })
+  };
+
+    update = (comps) => {
+        console.log("Update", comps);
+        var url = "http://localhost:8085/api/update_item/"+comps.name+"/"+comps.type+"/"+comps.count+"/" +comps.price;
+        fetch(url);
+    };
   render() {
-    return <div><h1 onClick={this.updateState}>{jsonList}</h1><p onClick={this.updateState}>hello</p></div>;
+    const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <div>Ошибка: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Загружаем...</div>;
+    } else {
+      return (
+          <div>
+              <Form update={this.update}/>
+              <table className={"table table-hover"}>
+                  <thead>
+                  <Zagolovki/>
+                  </thead>
+                  <tbody>
+                  <RenderList items={this.state.items} deleteItem={this.delete}/>
+                  </tbody>
+              </table>
+          </div>
+      )
+    }
   }
 }
+
+const Zagolovki = () => {
+  return(
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Count</th>
+        <th>Price</th>
+          <th>#</th>
+      </tr>
+  )
+};
 
 export default ListComponent;
 
-/*
-const SimpleList = () => (
-    <ul>
-      {['a', 'b', 'c'].map(function(item) {
-        return <li key={item}>{item}</li>;
-      })}
-    </ul>
-  );
-*/
+
+
+//
+// const SimpleList = names => (
+//     <ul>
+//       {['a', 'b', 'c'].map(function(names) {
+//         return <li key={names.id}>{names}</li>;
+//       })}
+//     </ul>
+//   );

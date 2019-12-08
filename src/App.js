@@ -1,17 +1,20 @@
 import React from 'react';
-import './App.css';
-import FirstComponent from "./components/FirstComponent";
+import './css/App.css';
 import ListComponent from "./components/ListComponent";
+import Form from "./components/FormComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <ListComponent />
-        <FirstComponent />
-      </header>
-    </div>
-  );
+class App extends React.Component{
+
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <ListComponent />
+                </header>
+            </div>
+        );
+    }
+
 }
 
 export default App;
