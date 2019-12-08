@@ -39,7 +39,7 @@ class ListComponent extends React.Component {
   delete = id => {
     console.log("Delete", id);
     var url = "http://api.localhost/delete_item/" + id;
-    fetch(url, { method: 'DELETE' }); // Проблема! Выполняется запрос типа GET. Необходимо выполнять запрос DELETE.
+    fetch(url, { method: "DELETE" });
     const { items } = this.state;
     this.setState({
       items: items.filter((item, i) => {
@@ -50,16 +50,11 @@ class ListComponent extends React.Component {
 
   update = comps => {
     console.log("Update", comps);
-    var url =
-      "http://api.localhost/update_item/" +
-      comps.name +
-      "/" +
-      comps.type +
-      "/" +
-      comps.count +
-      "/" +
-      comps.price;
-    fetch(url);
+    var url = "http://api.localhost/";
+    fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(comps)
+    });
   };
   render() {
     const { error, isLoaded, items } = this.state;
