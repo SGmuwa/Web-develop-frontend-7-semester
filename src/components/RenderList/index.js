@@ -13,7 +13,7 @@ class RenderList extends React.Component{
                     <td>{row.count}</td>
                     <td>{row.price}</td>
                     <td>
-                        <button className={"myButton"} onClick={() => this.props.deleteItem(row.id)}>Delete</button>
+                        <button className={"deleteButton"} onClick={() => this.props.deleteItem(row.id)}>Delete</button>
                     </td>
                 </tr>
             )

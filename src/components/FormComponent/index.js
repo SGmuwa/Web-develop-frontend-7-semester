@@ -15,7 +15,10 @@ class Form extends Component {
     }
 
     submitForm = () => {
-        this.props.update(this.state);
+        const newState = {...this.state}
+        newState.count = parseInt(newState.count)
+        newState.price = parseFloat(newState.price)
+        this.props.update(newState);
         this.setState(this.initialState)
     };
 
@@ -31,25 +34,21 @@ class Form extends Component {
         const { name, type, price,  count} = this.state;
 
         return (
-            <form>
-                <div className="form-row">
-                    <div className="col">
-                        <input type="text" className="form-control" placeholder="Name" name="name" value={name} onChange={this.handleChange}/>
-                    </div>
-                    <div className="col">
-                        <input type="text" className="form-control" placeholder="Type" name="type" value={type} onChange={this.handleChange}/>
-                    </div>
-                    <div className="col">
-                        <input type="text" className="form-control" placeholder="Count" name="count" value={count} onChange={this.handleChange}/>
-                    </div>
-                    <div className="col">
-                        <input type="text" className="form-control" placeholder="Price" name="price" value={price} onChange={this.handleChange}/>
-                    </div>
-
-                        <button className="btn btn-primary" onClick={() => this.submitForm()}>Submit</button>
-
+            <div className="form-row">
+                <div className="col">
+                    <input type="text" className="form-control" placeholder="Name" name="name" value={name} onChange={this.handleChange}/>
                 </div>
-            </form>
+                <div className="col">
+                    <input type="text" className="form-control" placeholder="Type" name="type" value={type} onChange={this.handleChange}/>
+                </div>
+                <div className="col">
+                    <input type="text" className="form-control" placeholder="Count" name="count" value={count} onChange={this.handleChange}/>
+                </div>
+                <div className="col">
+                    <input type="text" className="form-control" placeholder="Price" name="price" value={price} onChange={this.handleChange}/>
+                </div>
+                <button className="btn btn-primary" onClick={() => this.submitForm()}>Submit</button>
+            </div>
         );
     }
 }

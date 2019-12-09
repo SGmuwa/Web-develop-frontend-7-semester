@@ -2,6 +2,8 @@ import React from "react";
 import RenderList from "../RenderList";
 import Form from "../FormComponent";
 
+const url = 'http://api.localhost/'
+
 class ListComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -12,12 +14,12 @@ class ListComponent extends React.Component {
     };
   }
 
-  getlist = () => {
-    console.log("sadfsdaf");
-    fetch("http://api.localhost/get_items")
+  getList = () => {
+    fetch(url)
       .then(response => response.json())
       .then(
         jsonData => {
+          console.log("Get", jsonData);
           this.setState({
             isLoaded: true,
             items: jsonData
@@ -33,13 +35,12 @@ class ListComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.getlist();
+    this.getList();
   }
 
   delete = id => {
     console.log("Delete", id);
-    var url = "http://api.localhost/delete_item/" + id;
-    fetch(url, { method: "DELETE" });
+    fetch(url + id, { method: "DELETE" });
     const { items } = this.state;
     this.setState({
       items: items.filter((item, i) => {
@@ -48,13 +49,15 @@ class ListComponent extends React.Component {
     });
   };
 
-  update = comps => {
-    console.log("Update", comps);
-    var url = "http://api.localhost/";
+  put = comps => {
+    console.log("Put", comps);
     fetch(url, {
       method: "PUT",
-      body: JSON.stringify(comps)
-    });
+      body: JSON.stringify({...comps}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(() => this.getList());
   };
   render() {
     const { error, isLoaded, items } = this.state;
@@ -65,13 +68,13 @@ class ListComponent extends React.Component {
     } else {
       return (
         <div>
-          <Form update={this.update} />
+          <Form update={this.put} />
           <table className={"table table-hover"}>
             <thead>
-              <Zagolovki />
+              <TableHeaders />
             </thead>
             <tbody>
-              <RenderList items={this.state.items} deleteItem={this.delete} />
+              <RenderList items={items} deleteItem={this.delete} />
             </tbody>
           </table>
         </div>
@@ -80,7 +83,7 @@ class ListComponent extends React.Component {
   }
 }
 
-const Zagolovki = () => {
+const TableHeaders = () => {
   return (
     <tr>
       <th>Id</th>
@@ -94,12 +97,3 @@ const Zagolovki = () => {
 };
 
 export default ListComponent;
-
-//
-// const SimpleList = names => (
-//     <ul>
-//       {['a', 'b', 'c'].map(function(names) {
-//         return <li key={names.id}>{names}</li>;
-//       })}
-//     </ul>
-//   );
