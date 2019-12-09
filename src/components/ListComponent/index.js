@@ -12,7 +12,19 @@ class ListComponent extends React.Component {
       isLoaded: false,
       items: []
     };
+
+    setTimeout(this.onTimeUpdate, 2000);
   }
+
+  onTimeUpdate = () => {
+    if(this.notNeedExit)
+    {
+      this.getList()
+      setTimeout(this.onTimeUpdate, 500)
+    }
+  }
+
+  notNeedExit = true
 
   getList = () => {
     fetch(url)
