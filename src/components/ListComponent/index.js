@@ -2,7 +2,7 @@ import React from "react";
 import RenderList from "../RenderList";
 import Form from "../FormComponent";
 
-const url = 'http://api.localhost/'
+const url = "http://api.localhost/";
 
 class ListComponent extends React.Component {
   constructor(props) {
@@ -17,14 +17,13 @@ class ListComponent extends React.Component {
   }
 
   onTimeUpdate = () => {
-    if(this.notNeedExit)
-    {
-      this.getList()
-      setTimeout(this.onTimeUpdate, 500)
+    if (this.notNeedExit) {
+      this.getList();
+      setTimeout(this.onTimeUpdate, 500);
     }
-  }
+  };
 
-  notNeedExit = true
+  notNeedExit = true;
 
   getList = () => {
     fetch(url)
@@ -65,9 +64,9 @@ class ListComponent extends React.Component {
     console.log("Put", comps);
     fetch(url, {
       method: "PUT",
-      body: JSON.stringify({...comps}),
+      body: JSON.stringify({ ...comps }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     }).then(() => this.getList());
   };
