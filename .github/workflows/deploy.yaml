@@ -12,15 +12,12 @@ jobs:
       - uses: actions/checkout@master
         with:
           repository: "SGmuwa/Web-develop-docker-7-semester"
-      - run: |
-          find .
+      - run: find .
         name: view all files
-      - run: |
-          cd frontend
-      - run: |
-          find .
-        name: view all files step two
+      - run: cd frontend
         name: folder frontend
+      - run: find .
+        name: view all files step two
       - uses: actions/heroku@master
         name: Heroku build
         with:
