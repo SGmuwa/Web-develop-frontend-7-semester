@@ -9,25 +9,23 @@ jobs:
   run_tests:
     runs-on: [ubuntu-latest]
     steps:
-      # Чекаутим код
       - uses: actions/checkout@master
       - with:
           repository: 'SGmuwa/Web-develop-docker-7-semester'
-      # Устанавливаем python нужной версии
-      - name: Heroku build
-        uses: "actions/heroku@master"
+      - uses: "actions/heroku@master"
+        name: Heroku build
         with:
           args: "container:login"
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - name: Heroku push
-        uses: actions/heroku@master
+      - uses: actions/heroku@master
+        name: Heroku push
         with:
           args: "container:push web"
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - name: Heroku deploy
-        uses: actions/heroku@master
+      - uses: actions/heroku@master
+        name: Heroku deploy
         with:
           args: "container:release web"
         env:
