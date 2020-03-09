@@ -15,7 +15,7 @@ jobs:
           repository: 'SGmuwa/Web-develop-docker-7-semester'
       # Устанавливаем python нужной версии
       - name: Heroku build
-      - uses: "actions/heroku@master"
+        uses: "actions/heroku@master"
         with:
           args: "container:login"
         env:
@@ -26,11 +26,9 @@ jobs:
           args: "container:push web"
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: ${{ secrets.HEROKU_APP }}
       - name: Heroku deploy
         uses: actions/heroku@master
         with:
           args: "container:release web"
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: ${{ secrets.HEROKU_APP }}
