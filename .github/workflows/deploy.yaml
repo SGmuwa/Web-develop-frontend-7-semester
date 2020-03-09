@@ -10,7 +10,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@master
-      - with:
+        with:
           repository: 'SGmuwa/Web-develop-docker-7-semester'
       - uses: "actions/heroku@master"
         name: Heroku build
