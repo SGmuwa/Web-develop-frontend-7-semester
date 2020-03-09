@@ -10,14 +10,11 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@master
+        name: Clone repository
         with:
           repository: "SGmuwa/Web-develop-docker-7-semester"
-      - run: find .
-        name: view all files
-      - run: cd frontend
-        name: folder frontend
-      - run: find .
-        name: view all files step two
+      - run: mv ./frontend/* ./
+        name: Move need files
       - uses: actions/heroku@master
         name: Heroku build
         with:
