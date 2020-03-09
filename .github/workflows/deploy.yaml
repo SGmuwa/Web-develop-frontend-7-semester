@@ -11,11 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          repository: 'SGmuwa/Web-develop-docker-7-semester'
+          repository: "SGmuwa/Web-develop-docker-7-semester"
+      - run: |
+          find .
+        name: view all files
       - run: |
           cd frontend
+      - run: |
+          find .
+        name: view all files step two
         name: folder frontend
-      - uses: "actions/heroku@master"
+      - uses: actions/heroku@master
         name: Heroku build
         with:
           args: "container:login"
