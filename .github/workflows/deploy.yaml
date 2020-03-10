@@ -13,6 +13,7 @@ jobs:
         name: Clone repository
         with:
           repository: "SGmuwa/Web-develop-docker-7-semester"
+          ref: "cicd"
       - run: mv ./frontend/* ./
         name: Move need files
       - uses: actions/heroku@master
