@@ -1,7 +1,7 @@
 FROM alpine as builder
 RUN apk add npm
-RUN npm install
 COPY . .
+RUN npm install
 RUN npm run-script build
 FROM nginx
 COPY --from=builder /build /usr/share/nginx/html
