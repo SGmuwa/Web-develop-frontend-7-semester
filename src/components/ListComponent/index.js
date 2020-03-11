@@ -2,7 +2,7 @@ import React from "react";
 import RenderList from "../RenderList";
 import Form from "../FormComponent";
 
-const url = "http://api.localhost/";
+const url = "https://backend8.herokuapp.com/";
 
 class ListComponent extends React.Component {
   constructor(props) {
