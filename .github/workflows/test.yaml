@@ -5,7 +5,7 @@ on:
       - '!refs/tags/*'
     branches:
       - '!master'
-      - '*'
+      - '**'
   pull_request:
 jobs:
   deploy:
