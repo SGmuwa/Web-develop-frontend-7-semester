@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         node: [ '10', '8' ]
+    timeout-minutes: 4
     name: Test Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@master
