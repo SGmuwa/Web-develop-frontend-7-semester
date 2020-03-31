@@ -1,0 +1,24 @@
+name: Test
+on:
+  push:
+    tags:
+      - '!refs/tags/*'
+    branches:
+      - '*'
+  pull_request
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node: [ '10', '8' ]
+    name: Test Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@master
+        name: Clone repository
+      - uses: actions/setup-node@v1.4.1
+        name: npm
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm test
